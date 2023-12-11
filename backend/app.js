@@ -1,15 +1,15 @@
-const express = require('express');
+const express = require("express");
 const app = express();
-const errorMiddleware = require('./middlewares/error');
+const errorMiddleware = require("./middlewares/error");
 
-const bodyparser = require('body-parser');
+const bodyparser = require("body-parser");
 
 app.use(bodyparser.json());
-app.use(bodyparser.urlencoded({extended:true}));
+app.use(bodyparser.urlencoded({ extended: true }));
 
-const products = require('./routes/product');
+const products = require("./routes/product");
 
-app.use('/api/v1/',products);
+app.use("/api/v1/", products);
 
 app.use(errorMiddleware);
 
