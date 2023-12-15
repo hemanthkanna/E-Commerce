@@ -138,3 +138,34 @@ exports.getReviews = catchAsyncError(async (req, res, next) => {
     reviews: product.reviews,
   });
 });
+
+//Delete Reviews - api/v1/review?id={_id}&productId={productId}
+exports.deleteReview = catchAsyncError(async (req, res, next) => {
+  const product = await Product.findById(req.query.productId);
+
+  //fitering the reviews which does not match the deleting review id
+  const reviews = product.reviews.filter((review) => {
+    return review._id.toString() !== req.query.id.toString();
+  });
+
+  // number of reviews
+  const numOfReviews = reviews.length;
+
+  //finding average with filtered reviews
+  let ratings =
+    reviews.reduce((acc, review) => {
+      return review.rating + acc;
+    }, 0) / reviews.length;
+  ratings = isNaN(ratings) ? 0 : ratings;
+
+  //saving the product document
+  await Product.findByIdAndUpdate(req.query.productId, {
+    reviews,
+    numOfReviews,
+    ratings,
+  });
+
+  res.status(200).json({
+    success: true,
+  });
+});
