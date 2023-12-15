@@ -137,6 +137,7 @@ exports.getUserProfile = catchAsyncError(async (req, res, next) => {
   });
 });
 
+//Change Password - /api/v1/password/change
 exports.changePassword = catchAsyncError(async (req, res, next) => {
   const user = await User.findById(req.user.id).select("+password");
 
@@ -153,3 +154,20 @@ exports.changePassword = catchAsyncError(async (req, res, next) => {
     success: true,
   });
 });
+
+//Update Profile  -  /api/v1/update
+exports.updateProfile = catchAsyncError(async (req,res,next) => {
+  const newUserData = {
+    name: req.body.name,
+    email: req.body.email
+  }
+
+  const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
+    new:true,
+    runValidators:true,
+  })
+
+  res.status(200).json({
+    success:true,
+  })
+})
