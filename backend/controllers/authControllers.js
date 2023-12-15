@@ -156,18 +156,80 @@ exports.changePassword = catchAsyncError(async (req, res, next) => {
 });
 
 //Update Profile  -  /api/v1/update
-exports.updateProfile = catchAsyncError(async (req,res,next) => {
+exports.updateProfile = catchAsyncError(async (req, res, next) => {
   const newUserData = {
     name: req.body.name,
-    email: req.body.email
-  }
+    email: req.body.email,
+  };
 
   const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
-    new:true,
-    runValidators:true,
-  })
+    new: true,
+    runValidators: true,
+  });
 
   res.status(200).json({
-    success:true,
-  })
-})
+    success: true,
+  });
+});
+
+//Admin : Get all users -  /api/v1/admin/users/
+exports.getAllUsers = catchAsyncError(async (req, res, next) => {
+  const users = await User.find();
+
+  res.status(200).json({
+    success: true,
+    users,
+  });
+});
+
+//Admin : Get specific user -  /api/v1/admin/user/:id
+exports.getUser = catchAsyncError(async (req, res, next) => {
+  const user = await User.findById(req.params.id);
+
+  if (!user) {
+    return next(
+      new ErrorHandler(`User not found with this id : ${req.params.id}`)
+    );
+  }
+
+  res.status(200).json({
+    success: true,
+    user,
+  });
+});
+
+// Admin : Update user -  /api/v1/admin/user/:id
+exports.updateUser = catchAsyncError(async (req, res, next) => {
+  const newUserData = {
+    name: req.body.name,
+    email: req.body.email,
+    role: req.body.role,
+  };
+
+  const user = await User.findByIdAndUpdate(req.params.id, newUserData, {
+    new: true,
+    runValidators: true,
+  });
+
+  res.status(200).json({
+    success: true,
+    user,
+  });
+});
+
+//Admin : Delete user -  /api/v1/admin/user/:id
+exports.deleteUser = catchAsyncError(async (req, res, next) => {
+  const user = await User.findById(req.params.id);
+
+  if (!user) {
+    return next(
+      new ErrorHandler(`user not foud with this id : ${req.params.id}`)
+    );
+  }
+
+  await user.deleteOne();
+
+  res.status(200).json({
+    success: true,
+  });
+});
