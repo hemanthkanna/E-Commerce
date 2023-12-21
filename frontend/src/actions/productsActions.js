@@ -5,10 +5,11 @@ import {
   productsSuccess,
 } from "../slices/productsSlice";
 
-export const getProducts = async (dispatch) => {
+export const getProducts = (currentPage) => async (dispatch) => {
   try {
     dispatch(productsRequest());
-    const { data } = await axios.get("/api/v1/products");
+    let link = `/api/v1/products?page=${currentPage}`;
+    const { data } = await axios.get(link);
     dispatch(productsSuccess(data));
   } catch (error) {
     //handle error
