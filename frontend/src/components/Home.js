@@ -25,7 +25,7 @@ export default function Home() {
         position: toast.POSITION.BOTTOM_CENTER,
       });
     }
-    dispatch(getProducts(null, currentPage));
+    dispatch(getProducts(null, null, null, currentPage));
   }, [error, dispatch, currentPage]);
 
   return (
@@ -42,7 +42,7 @@ export default function Home() {
             <div className="row">
               {products &&
                 products.map((product) => (
-                  <Product key={product._id} product={product} />
+                  <Product col={4} key={product._id} product={product} />
                 ))}
             </div>
           </section>

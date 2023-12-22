@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 
-export default function Product({ product }) {
+export default function Product({ product, col }) {
   return (
-    <div className="col-sm-12 col-md-6 col-lg-3 my-3">
+    <div className={`col-sm-12 col-md-6 col-lg-${col} my-3`}>
       <div className="card p-3 rounded">
         <img className="card-img-top mx-auto" src={product.images[0].image} alt={product.name}/>
         <div className="card-body d-flex flex-column">
