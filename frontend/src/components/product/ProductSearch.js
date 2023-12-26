@@ -21,8 +21,27 @@ export default function ProductSearch() {
   const [currentPage, setCurrentPage] = useState(1);
   const [price, setPrice] = useState([1, 1000]);
   const [priceChanged, setPriceChanged] = useState(price);
+  const [category, setCategory]= useState(null);
 
   const { keyword } = useParams();
+  const categories = [
+    "Honey varieties",
+    "Honey Delicacies",
+    "Skin care",
+    "Honey medicines",
+    "Electronics",
+    "Mobile Phones",
+    "Laptops",
+    "Accessories",
+    "Headphones",
+    "Food",
+    "Books",
+    "Clothes/Shoes",
+    "Beauty/Health",
+    "Sports",
+    "Outdoor",
+    "Home"
+  ];
 
   const setCurrentPageNo = (pageNo) => {
     setCurrentPage(pageNo);
@@ -34,8 +53,8 @@ export default function ProductSearch() {
         position: toast.POSITION.BOTTOM_CENTER,
       });
     }
-    dispatch(getProducts(keyword, priceChanged, currentPage));
-  }, [error, dispatch, currentPage, keyword, priceChanged]);
+    dispatch(getProducts(keyword, priceChanged, category, currentPage));
+  }, [error, dispatch, currentPage, keyword, priceChanged, category]);
 
   return (
     <Fragment>
@@ -76,6 +95,25 @@ export default function ProductSearch() {
                   />
                 </div>
                 <hr className="my-5" />
+                {/* Category Filter */}
+                <div className="mt-5">
+                  <h3 className="mb-3">Categories</h3>
+                  <ul className="pl-0">
+                    {categories.map(category => 
+                                          <li
+                                          style={{
+                                            cursor: "pointer",
+                                            listStyleType: "none",
+                                          }}
+                                          key={category}
+                                          onClick={() => {
+                                            setCategory(category)
+                                          }}
+                                        > {category}</li>
+                                         )}
+
+                  </ul>
+                </div>
               </div>
 
               <div className="col-6 col-md-9">
