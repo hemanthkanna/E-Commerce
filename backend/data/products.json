@@ -1,5 +1,119 @@
 [
     {
+        "name": "Kurinji Thinai Finest Quality Honey (250ml)",
+        "price": 250,
+        "description": "Kurinji Thinai Finest Quality Honey from Western Ghats Forsets.",
+        "ratings": 5,
+        "images": [
+            {
+                "image": "/images/products/IMG_9337.jpg"
+            },
+            {
+                "image": "/images/products/IMG_9335.jpg"
+            }
+        ],
+        "category": "Honey varieties",
+        "seller": "Kurinji",
+        "stock": 15,
+        "numOfReviews": 12,
+        "reviews": []
+    },
+    {
+        "name": "Kurinji Thinai Finest Quality Honey(500ml)",
+        "price": 500,
+        "description": "Kurinji Thinai Finest Quality Honey from Western Ghats Forsets.",
+        "ratings": 4,
+        "images": [
+            {
+                "image": "/images/products/IMG_9344.jpg"
+            },
+            {
+                "image": "/images/products/IMG_9346.jpg"
+            }
+        ],
+        "category": "Honey varieties",
+        "seller": "Kurinji",
+        "stock": 15,
+        "numOfReviews": 12,
+        "reviews": []
+    },
+    {
+        "name": "Kurinji Thinai Finest Quality Honey(1000ml)",
+        "price": 1000,
+        "description": "Kurinji Thinai Finest Quality Honey from Western Ghats Forsets.",
+        "ratings": 4,
+        "images": [
+            {
+                "image": "/images/products/IMG_9335.jpg"
+            },
+            {
+                "image": "/images/products/IMG_9346.jpg"
+            }
+        ],
+        "category": "Honey varieties",
+        "seller": "Kurinji",
+        "stock": 15,
+        "numOfReviews": 12,
+        "reviews": []
+    },
+    {
+        "name": "Kurinji Thinai Premium Quality Honey (250ml)",
+        "price": 450,
+        "description": "Kurinji Thinai Premium Quality Honey from Western Ghats Forsets.",
+        "ratings": 5,
+        "images": [
+            {
+                "image": "/images/products/IMG_9364.jpg"
+            },
+            {
+                "image": "/images/products/IMG_9366.jpg"
+            }
+        ],
+        "category": "Honey Delicacies",
+        "seller": "Kurinji",
+        "stock": 15,
+        "numOfReviews": 12,
+        "reviews": []
+    },
+    {
+        "name": "Kurinji Thinai Premium Quality Honey (500ml)",
+        "price": 850,
+        "description": "Kurinji Thinai Premium Quality Honey from Western Ghats Forsets.",
+        "ratings": 5,
+        "images": [
+            {
+                "image": "/images/products/IMG_9366.jpg"
+            },
+            {
+                "image": "/images/products/IMG_9364.jpg"
+            }
+        ],
+        "category": "Honey Delicacies",
+        "seller": "Kurinji",
+        "stock": 15,
+        "numOfReviews": 12,
+        "reviews": []
+    },
+    {
+        "name": "Kurinji Thinai Premium Quality Honey (1000ml)",
+        "price": 250,
+        "description": "Kurinji Thinai Premium Quality Honey from Western Ghats Forsets.",
+        "ratings": 4,
+        "images": [
+            {
+                "image": "/images/products/IMG_9364.jpg"
+            },
+            {
+                "image": "/images/products/IMG_9366.jpg"
+            }
+        ],
+        "category": "Honey Delicacies",
+        "seller": "Kurinji",
+        "stock": 15,
+        "numOfReviews": 12,
+        "reviews": []
+    },
+    {
         "name": "OPPO F21s Pro 5G",
         "price": 245.67,
         "description": "OPPO F21s Pro 5G is a powerful device with a RAM extension feature, that offers brilliant operational speed to users.",

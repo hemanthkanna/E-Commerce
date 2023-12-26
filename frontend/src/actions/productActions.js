@@ -5,6 +5,12 @@ import {
   productsSuccess,
 } from "../slices/productsSlice";
 
+import {
+  productFail,
+  productRequest,
+  productSuccess,
+} from "../slices/productSlice";
+
 export const getProducts =
   (keyword, price, category, rating, currentPage) => async (dispatch) => {
     try {
@@ -29,5 +35,16 @@ export const getProducts =
     } catch (error) {
       //handle error
       dispatch(productsFail(error.response.data.message));
+    }
+  };
+  
+  export const getProduct = id => async (dispatch) => {
+    try {
+      dispatch(productRequest());
+      const { data } = await axios.get(`/api/v1/product/${id}`);
+      dispatch(productSuccess(data));
+    } catch (error) {
+      //handle error
+      dispatch(productFail(error.response.data.message));
     }
   };
