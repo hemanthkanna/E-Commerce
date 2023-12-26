@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, startTransition, useEffect, useState } from "react";
 import MetaData from ".././layouts/MetaData";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../../actions/productsActions";
@@ -21,7 +21,8 @@ export default function ProductSearch() {
   const [currentPage, setCurrentPage] = useState(1);
   const [price, setPrice] = useState([1, 1000]);
   const [priceChanged, setPriceChanged] = useState(price);
-  const [category, setCategory]= useState(null);
+  const [category, setCategory] = useState(null);
+  const [rating, setRating] = useState(0);
 
   const { keyword } = useParams();
   const categories = [
@@ -40,7 +41,7 @@ export default function ProductSearch() {
     "Beauty/Health",
     "Sports",
     "Outdoor",
-    "Home"
+    "Home",
   ];
 
   const setCurrentPageNo = (pageNo) => {
@@ -53,8 +54,8 @@ export default function ProductSearch() {
         position: toast.POSITION.BOTTOM_CENTER,
       });
     }
-    dispatch(getProducts(keyword, priceChanged, category, currentPage));
-  }, [error, dispatch, currentPage, keyword, priceChanged, category]);
+    dispatch(getProducts(keyword, priceChanged, category, rating, currentPage));
+  }, [error, dispatch, currentPage, keyword, priceChanged, category, rating]);
 
   return (
     <Fragment>
@@ -99,19 +100,49 @@ export default function ProductSearch() {
                 <div className="mt-5">
                   <h3 className="mb-3">Categories</h3>
                   <ul className="pl-0">
-                    {categories.map(category => 
-                                          <li
-                                          style={{
-                                            cursor: "pointer",
-                                            listStyleType: "none",
-                                          }}
-                                          key={category}
-                                          onClick={() => {
-                                            setCategory(category)
-                                          }}
-                                        > {category}</li>
-                                         )}
-
+                    {categories.map((category) => (
+                      <li
+                        style={{
+                          cursor: "pointer",
+                          listStyleType: "none",
+                        }}
+                        key={category}
+                        onClick={() => {
+                          setCategory(category);
+                        }}
+                      >
+                        {" "}
+                        {category}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <hr className="my-5" />
+                {/* Ratings Filter */}
+                <div className="mt-5">
+                  <h4 className="mb-3">Ratings</h4>
+                  <ul className="pl-0">
+                    {[5, 4, 3, 2, 1].map((star) => (
+                      <li
+                        style={{
+                          cursor: "pointer",
+                          listStyleType: "none",
+                        }}
+                        key={star}
+                        onClick={() => {
+                          setRating(star);
+                        }}
+                      >
+                        <div className="rating-outer">
+                          <div
+                            className="rating-inner"
+                            style={{
+                              width: `${star * 20}%`,
+                            }}
+                          ></div>
+                        </div>
+                      </li>
+                    ))}
                   </ul>
                 </div>
               </div>
