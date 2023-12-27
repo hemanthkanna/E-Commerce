@@ -13,7 +13,7 @@ export default function Register() {
 
   const [avatar, setAvatar] = useState("");
   const [avatarPreview, setAvatarPreview] = useState(
-    "/images/default_avatar.jpg"
+    "/images/default_avatar.png"
   );
 
   const dispatch = useDispatch();
@@ -59,7 +59,7 @@ export default function Register() {
         })
         return
     }
-  },[error, isAuthenticated])
+  },[error, isAuthenticated, dispatch, navigate])
 
   return (
     <div className="row wrapper">
@@ -115,7 +115,7 @@ export default function Register() {
                   <img
                     src={avatarPreview}
                     className="rounded-circle"
-                    alt="image"
+                    alt="avatar"
                   />
                 </figure>
               </div>
