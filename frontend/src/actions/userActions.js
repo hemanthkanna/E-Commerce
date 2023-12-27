@@ -12,7 +12,6 @@ import {
   logoutSuccess,
   logoutFail,
   updateProfileRequest,
-  updatePrfileSuccess,
   updateProfileFail,
   updatePasswordRequest,
   updatePasswordSuccess,
@@ -23,6 +22,7 @@ import {
   forgotPasswordFail,
   forgotPasswordSuccess,
   forgotPasswordRequest,
+  updateProfileSuccess,
 } from "../slices/authSlice";
 import axios from "axios";
 
@@ -86,7 +86,7 @@ export const updateProfile = (userData) => async (dispatch) => {
     };
 
     const { data } = await axios.put(`/api/v1/update`, userData, config);
-    dispatch(updatePrfileSuccess(data));
+    dispatch(updateProfileSuccess(data));
   } catch (error) {
     dispatch(updateProfileFail(error.response.data.message));
   }

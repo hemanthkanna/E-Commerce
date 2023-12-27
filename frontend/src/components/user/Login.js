@@ -11,28 +11,31 @@ export default function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { loading, error, isAuthenticated } = useSelector(state => state.authState)
+  const { loading, error, isAuthenticated } = useSelector(
+    (state) => state.authState
+  );
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(login(email,password))
-  }
+    dispatch(login(email, password));
+  };
 
   useEffect(() => {
     if (isAuthenticated) {
-        navigate("/");
+      navigate("/");
     }
 
     if (error) {
-        toast(error, {
-            position: toast.POSITION.TOP_RIGHT,
-            type: 'error',
-            onOpen: ()=> {dispatch(clearAuthError)}
-        })
-        return
+      toast(error, {
+        position: toast.POSITION.TOP_RIGHT,
+        type: "error",
+        onOpen: () => {
+          dispatch(clearAuthError);
+        },
+      });
+      return;
     }
-  },[error, isAuthenticated, dispatch])
-
+  }, [error, isAuthenticated, dispatch, navigate]);
 
   return (
     <Fragment>
