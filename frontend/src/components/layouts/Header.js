@@ -7,6 +7,7 @@ import { logout } from "../../actions/userActions";
 
 export default function Header() {
   const { isAuthenticated, user } = useSelector((state) => state.authState);
+  const { items:cartItems } = useSelector((state) => state.cartState);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const logoutHandler = () => {
@@ -37,7 +38,7 @@ export default function Header() {
               <figure className="avatar avatar-nav">
                 <Image
                   width="50px"
-                  src={user.avatar??'./images/default_avatar.png'}
+                  src={user.avatar ?? "./images/default_avatar.png"}
                 />
               </figure>
               <span>{user.name}</span>
@@ -62,11 +63,13 @@ export default function Header() {
           </Link>
         )}
 
-        <span id="cart" className="ml-3">
-          Cart
-        </span>
+        <Link to="/cart">
+          <span id="cart" className="ml-3">
+            Cart
+          </span>
+        </Link>
         <span className="ml-1" id="cart_count">
-          2
+          {cartItems.length}
         </span>
       </div>
     </nav>

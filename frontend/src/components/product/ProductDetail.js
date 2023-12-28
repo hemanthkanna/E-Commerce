@@ -1,15 +1,31 @@
-import { Fragment, useEffect } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProduct } from "../../actions/productActions";
 import { useParams } from "react-router-dom";
 import Loader from "../layouts/Loader";
 import { Carousel } from "react-bootstrap";
 import MetaData from "../layouts/MetaData";
+import { addCartItem } from "../../actions/cartAction";
 
 export default function ProductDetail() {
   const { loading, product } = useSelector((state) => state.productState);
   const dispatch = useDispatch();
   const { id } = useParams();
+  const [quantity, setQuantity] = useState(1);
+
+  const increaseQty = () => {
+    const count = document.querySelector(".count");
+    if (product.stock == 0 || count.valueAsNumber >= product.stock) return;
+    const qty = count.valueAsNumber + 1;
+    setQuantity(qty);
+  };
+
+  const decreaseQty = () => {
+    const count = document.querySelector(".count");
+    if (count.valueAsNumber == 1) return;
+    const qty = count.valueAsNumber - 1;
+    setQuantity(qty);
+  };
 
   useEffect(() => {
     dispatch(getProduct(id));
@@ -21,7 +37,7 @@ export default function ProductDetail() {
         <Loader />
       ) : (
         <Fragment>
-          <MetaData title={product.name}/>
+          <MetaData title={product.name} />
           <div className="row f-flex justify-content-around">
             <div className="col-12 col-lg-5 img-fluid" id="product_image">
               <Carousel pause="hover">
@@ -60,20 +76,26 @@ export default function ProductDetail() {
 
               <p id="product_price">${product.price}</p>
               <div className="stockCounter d-inline">
-                <span className="btn btn-danger minus">-</span>
+                <span className="btn btn-danger minus" onClick={decreaseQty}>
+                  -
+                </span>
 
                 <input
                   type="number"
                   className="form-control count d-inline"
-                  value="1"
+                  value={quantity}
                   readOnly
                 />
 
-                <span className="btn btn-primary plus">+</span>
+                <span className="btn btn-primary plus" onClick={increaseQty}>
+                  +
+                </span>
               </div>
               <button
                 type="button"
                 id="cart_btn"
+                disabled={product.stock == 0 ? true : false}
+                onClick={() => dispatch(addCartItem(product._id, quantity))}
                 className="btn btn-primary d-inline ml-4"
               >
                 Add to Cart
