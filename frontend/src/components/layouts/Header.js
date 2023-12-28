@@ -7,7 +7,7 @@ import { logout } from "../../actions/userActions";
 
 export default function Header() {
   const { isAuthenticated, user } = useSelector((state) => state.authState);
-  const { items:cartItems } = useSelector((state) => state.cartState);
+  const { items: cartItems } = useSelector((state) => state.cartState);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const logoutHandler = () => {
@@ -44,6 +44,16 @@ export default function Header() {
               <span>{user.name}</span>
             </Dropdown.Toggle>
             <Dropdown.Menu>
+              {user.role === "admin" && (
+                <Dropdown.Item
+                  onClick={() => {
+                    navigate("admin/dashboard");
+                  }}
+                  className="text-dark"
+                >
+                  Dashboard
+                </Dropdown.Item>
+              )}
               <Dropdown.Item
                 onClick={() => {
                   navigate("/myprofile");
@@ -51,6 +61,14 @@ export default function Header() {
                 className="text-dark"
               >
                 Profile
+              </Dropdown.Item>
+              <Dropdown.Item
+                onClick={() => {
+                  navigate("/orders");
+                }}
+                className="text-dark"
+              >
+                Orders
               </Dropdown.Item>
               <Dropdown.Item onClick={logoutHandler} className="text-danger">
                 Logout

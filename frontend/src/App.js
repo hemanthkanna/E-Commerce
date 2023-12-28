@@ -41,52 +41,14 @@ function App() {
               <Route path="/product/:id" element={<ProductDetail />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
-              <Route
-                path="/myprofile"
-                element={
-                  <ProtectedRoute>
-                    <Profile />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/myprofile/update"
-                element={
-                  <ProtectedRoute>
-                    <UpdateProfile />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/myprofile/update/password"
-                element={
-                  <ProtectedRoute>
-                    <UpdatePassword />
-                  </ProtectedRoute>
-                }
-              />
-              <Route path="/password/forgot" element={<ForgotPassword />} />
-              <Route
-                path="/password/reset/:token"
-                element={<ResetPassword />}
-              />
-              <Route path="/cart" element={<Cart />} />
-              <Route
-                path="/shipping"
-                element={
-                  <ProtectedRoute>
-                    <Shipping />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/order/confirm"
-                element={
-                  <ProtectedRoute>
-                    <ConfirmOrder />
-                  </ProtectedRoute>
-                }
-              />
+              <Route path='/myprofile' element={<ProtectedRoute><Profile/></ProtectedRoute> } />
+              <Route path='/myprofile/update' element={<ProtectedRoute><UpdateProfile/></ProtectedRoute> } />
+              <Route path='/myprofile/update/password' element={<ProtectedRoute><UpdatePassword/></ProtectedRoute> } />
+              <Route path='/password/forgot' element={<ForgotPassword/> } />
+              <Route path='/password/reset/:token' element={<ResetPassword/> } />
+              <Route path='/cart' element={<Cart/> } />
+              <Route path='/shipping' element={<ProtectedRoute><Shipping/></ProtectedRoute> } />
+              <Route path='/order/confirm' element={<ProtectedRoute><ConfirmOrder/></ProtectedRoute> } />
             </Routes>
           </div>
           <Footer />

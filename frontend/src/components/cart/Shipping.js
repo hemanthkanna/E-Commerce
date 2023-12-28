@@ -12,18 +12,19 @@ export const validateShipping = (shippingInfo, navigate) => {
     !shippingInfo.city ||
     !shippingInfo.state ||
     !shippingInfo.country ||
-    !shippingInfo.postalCode ||
-    !shippingInfo.phoneNo
+    !shippingInfo.phoneNo ||
+    !shippingInfo.postalCode
   ) {
     toast.error("Please fill the shipping information", {
-      position: toast.POSITION.TOP_CENTER,
+      position: toast.POSITION.BOTTOM_CENTER,
     });
     navigate("/shipping");
   }
 };
 
 export default function Shipping() {
-  const { shippingInfo } = useSelector((state) => state.cartState);
+  const { shippingInfo = {} } = useSelector((state) => state.cartState);
+
   const [address, setAddress] = useState(shippingInfo.address);
   const [city, setCity] = useState(shippingInfo.city);
   const [phoneNo, setPhoneNo] = useState(shippingInfo.phoneNo);
@@ -45,7 +46,7 @@ export default function Shipping() {
 
   return (
     <Fragment>
-      <CheckoutSteps shipping={true} />
+      <CheckoutSteps shipping />
       <div className="row wrapper">
         <div className="col-10 col-lg-5">
           <form onSubmit={submitHandler} className="shadow-lg">
@@ -114,7 +115,7 @@ export default function Shipping() {
                 ))}
               </select>
             </div>
-
+            
             <div className="form-group">
               <label htmlFor="state_field">State</label>
               <input

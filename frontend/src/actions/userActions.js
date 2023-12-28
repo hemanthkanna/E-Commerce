@@ -81,7 +81,7 @@ export const updateProfile = (userData) => async (dispatch) => {
     dispatch(updateProfileRequest());
     const config = {
       headers: {
-        "content-type": "multipart/form-data",
+        "Content-type": "multipart/form-data",
       },
     };
 

@@ -22,6 +22,7 @@ export default function UpdateProfile() {
         setAvatar(e.target.files[0]);
       }
     };
+
     reader.readAsDataURL(e.target.files[0]);
   };
 
@@ -46,7 +47,7 @@ export default function UpdateProfile() {
     if (isUpdated) {
       toast("Profile updated successfully", {
         type: "success",
-        position: toast.POSITION.TOP_RIGHT,
+        position: toast.POSITION.BOTTOM_CENTER,
         onOpen: () => dispatch(clearUpdateProfile()),
       });
       return;
@@ -54,7 +55,7 @@ export default function UpdateProfile() {
 
     if (error) {
       toast(error, {
-        position: toast.POSITION.TOP_RIGHT,
+        position: toast.POSITION.BOTTOM_CENTER,
         type: "error",
         onOpen: () => {
           dispatch(clearAuthError);
