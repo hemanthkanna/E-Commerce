@@ -36,11 +36,10 @@ export default function Cart() {
           <h2 className="mt-5">
             Your Cart: <b>{items.length} items</b>
           </h2>
-
           <div className="row d-flex justify-content-between">
             <div className="col-12 col-lg-8">
               {items.map((item) => (
-                <Fragment>
+                <Fragment key={item.product}>
                   <hr />
                   <div className="cart-item">
                     <div className="row">
@@ -98,6 +97,7 @@ export default function Cart() {
                   </div>
                 </Fragment>
               ))}
+              <hr />
             </div>
 
             <div className="col-12 col-lg-3 my-4">
