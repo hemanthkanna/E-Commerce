@@ -11,7 +11,7 @@ export default function Profile() {
           <img
             className="rounded-circle img-fluid"
             src={user.avatar ?? "./images/default_avatar.png"}
-            alt=""
+            alt="avatar"
           />
         </figure>
         <Link
@@ -33,9 +33,9 @@ export default function Profile() {
         <h4>Joined</h4>
         <p>{String(user.createdAt).substring(0, 10)}</p>
 
-        <a href="javascript;" className="btn btn-danger btn-block mt-5">
+        <Link to="/orders" className="btn btn-danger btn-block mt-5">
           My Orders
-        </a>
+        </Link>
 
         <Link to="/myprofile/update/password" className="btn btn-primary btn-block mt-3">
           Change Password

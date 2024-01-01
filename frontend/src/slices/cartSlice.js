@@ -71,6 +71,16 @@ const cartSlice = createSlice({
         shippingInfo: action.payload,
       };
     },
+    orderCompleted(state, action) {
+      localStorage.removeItem('shippingInfo');
+      localStorage.removeItem('cartItems');
+      sessionStorage.removeItem('orderInfo');
+      return {
+        items: [],
+        loading: false,
+        shippingInfo: {}
+      };
+    },
   },
 });
 
@@ -83,5 +93,6 @@ export const {
   decreaseCartItemQty,
   removeItemFromCart,
   saveShippingInfo,
+  orderCompleted,
 } = actions;
 export default reducer;

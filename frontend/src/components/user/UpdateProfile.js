@@ -9,9 +9,7 @@ export default function UpdateProfile() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [avatar, setAvatar] = useState("");
-  const [avatarPreview, setAvatarPreview] = useState(
-    "/images/default_avatar.png"
-  );
+  const [avatarPreview, setAvatarPreview] = useState({path : './images/default_image.png'});
   const dispatch = useDispatch();
 
   const onChangeAvatar = (e) => {
@@ -27,12 +25,16 @@ export default function UpdateProfile() {
   };
 
   const submitHandler = (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append("name", name);
-    formData.append("email", email);
-    formData.append("avatar", avatar);
-    dispatch(updateProfile(formData));
+    try {
+      e.preventDefault();
+      const formData = new FormData();
+      formData.append("name", name);
+      formData.append("email", email); 
+      formData.append("avatar", avatar);
+      dispatch(updateProfile(formData));
+    } catch (error) {
+     console.log(error); 
+    }
   };
 
   useEffect(() => {
@@ -54,6 +56,7 @@ export default function UpdateProfile() {
     }
 
     if (error) {
+      console.log("1234566");
       toast(error, {
         position: toast.POSITION.BOTTOM_CENTER,
         type: "error",

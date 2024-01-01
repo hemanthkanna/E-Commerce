@@ -168,8 +168,12 @@ exports.updateProfile = catchAsyncError(async (req, res, next) => {
 
   let avatar;
   if (req.file) {
-    avatar = `${process.env.BACKEND_URL}/uploads/user/${req.file.originalname}`;
-    newUserData = {...newUserData, avatar}
+    try {
+      avatar = `${process.env.BACKEND_URL}/uploads/user/${req.file.originalname}`;
+      newUserData = {...newUserData, avatar}
+    } catch (error) {
+      console.log(error);
+    }
   }
 
 

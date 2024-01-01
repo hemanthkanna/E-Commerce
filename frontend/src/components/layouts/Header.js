@@ -38,13 +38,13 @@ export default function Header() {
               <figure className="avatar avatar-nav">
                 <Image
                   width="50px"
-                  src={user.avatar ?? "./images/default_avatar.png"}
+                  src={user && user.avatar ? user.avatar : "./images/default_avatar.png"}
                 />
               </figure>
-              <span>{user.name}</span>
+              <span>{user && user.name}</span>
             </Dropdown.Toggle>
             <Dropdown.Menu>
-              {user.role === "admin" && (
+              {user && user.role === "admin" && (
                 <Dropdown.Item
                   onClick={() => {
                     navigate("admin/dashboard");
