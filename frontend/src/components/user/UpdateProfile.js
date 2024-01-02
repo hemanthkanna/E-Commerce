@@ -56,7 +56,6 @@ export default function UpdateProfile() {
     }
 
     if (error) {
-      console.log("1234566");
       toast(error, {
         position: toast.POSITION.BOTTOM_CENTER,
         type: "error",
