@@ -151,7 +151,13 @@ export default function ProductDetail() {
                 type="button"
                 id="cart_btn"
                 disabled={product.stock == 0 ? true : false}
-                onClick={() => dispatch(addCartItem(product._id, quantity))}
+                onClick={() => {
+                  dispatch(addCartItem(product._id, quantity));
+                  toast("Cart Item Added!", {
+                    type: "success",
+                    position: toast.POSITION.TOP_RIGHT,
+                  });
+                }}
                 className="btn btn-primary d-inline ml-4"
               >
                 Add to Cart
@@ -190,8 +196,7 @@ export default function ProductDetail() {
                 </button>
               ) : (
                 <div className="alert alert-danger mt-5">
-                  {" "}
-                  Login to Post Review{" "}
+                  Login to Post Review
                 </div>
               )}
 
