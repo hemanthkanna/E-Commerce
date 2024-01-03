@@ -49,7 +49,12 @@ router
   .get(isAuthenticatedUser, authorizeRoles("admin"), getAdminProducts);
 router
   .route("/admin/product/:id")
-  .put(isAuthenticatedUser, authorizeRoles("admin"), updateProduct);
+  .put(
+    isAuthenticatedUser,
+    authorizeRoles("admin"),
+    upload.array("images"),
+    updateProduct
+  );
 router
   .route("/admin/product/:id")
   .delete(isAuthenticatedUser, authorizeRoles("admin"), deleteProduct);
