@@ -33,7 +33,7 @@ router.route("/products").get(getProducts);
 router.route("/product/:id").get(getSingleProduct);
 router.route("/review").put(isAuthenticatedUser, createReview);
 router.route("/review").delete(deleteReview);
-router.route("/reviews/:id").get(getReviews);
+// router.route("/reviews/:id").get(getReviews);
 
 //Admin Routes
 router
@@ -58,5 +58,12 @@ router
 router
   .route("/admin/product/:id")
   .delete(isAuthenticatedUser, authorizeRoles("admin"), deleteProduct);
+
+router
+  .route("/admin/reviews")
+  .get(isAuthenticatedUser, authorizeRoles("admin"), getReviews);
+router
+  .route("/admin/review")
+  .delete(isAuthenticatedUser, authorizeRoles("admin"), deleteReview);
 
 module.exports = router;
