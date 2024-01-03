@@ -11,12 +11,12 @@ exports.getProducts = async (req, res, next) => {
     return new APIFeatures(Product.find(), req.query).search().filter();
   };
 
-  const filterdProductCount = await buildQuery().query.countDocuments({})
+  const filterdProductCount = await buildQuery().query.countDocuments({});
   const totalProductsCount = await Product.countDocuments({});
   let productCount = totalProductsCount;
 
-  if(filterdProductCount !== totalProductsCount ) {
-    productCount = filterdProductCount
+  if (filterdProductCount !== totalProductsCount) {
+    productCount = filterdProductCount;
   }
 
   const products = await buildQuery().paginate(resPerPage).query;
@@ -31,6 +31,17 @@ exports.getProducts = async (req, res, next) => {
 
 // Create Product  --  /api/v1/product/new
 exports.newProduct = catchAsyncError(async (req, res, next) => {
+  let images = []
+
+  if(req.files.length > 0 ) {
+    req.files.forEach(file => {
+      let url = `${process.env.BACKEND_URL}/uploads/product/${file.originalname}`;
+      images.push({ image: url })
+    });
+  }
+
+  req.body.images = images;
+
   req.body.user = req.user.id;
   const product = await Product.create(req.body);
   res.status(201).json({
@@ -41,7 +52,10 @@ exports.newProduct = catchAsyncError(async (req, res, next) => {
 
 // Get Single Product  -- /api/v1/product/:id
 exports.getSingleProduct = catchAsyncError(async (req, res, next) => {
-  const product = await Product.findById(req.params.id).populate('reviews.user', 'name email');
+  const product = await Product.findById(req.params.id).populate(
+    "reviews.user",
+    "name email"
+  );
 
   if (!product) {
     return next(new ErrorHandler("product not found", 400));
@@ -179,3 +193,12 @@ exports.deleteReview = catchAsyncError(async (req, res, next) => {
     success: true,
   });
 });
+
+// get admin products  - api/v1/admin/products
+exports.getAdminProducts = catchAsyncError(async (req, res, next) => {
+  const products = await Product.find();
+  res.status(200).send({
+    success: true,
+    products
+  })
+})

@@ -522,6 +522,10 @@ footer {
   color: white;
   text-decoration: none;
 }
+#sidebar ul li div.dropdown-menu a{
+  color: black;
+}
+
 #sidebar ul li a:hover {
   color: #232f3e;
   background: #fff;
