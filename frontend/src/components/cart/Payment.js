@@ -4,13 +4,13 @@ import {
   CardExpiryElement,
   CardCvcElement,
 } from "@stripe/react-stripe-js";
+import axios from "axios";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { validateShipping } from "./Shipping";
-import axios from "axios";
 import { toast } from "react-toastify";
 import { orderCompleted } from "../../slices/cartSlice";
+import { validateShipping } from "../cart/Shipping";
 import { createOrder } from "../../actions/orderAction";
 import { clearError as clearOrderError } from "../../slices/orderSlice";
 
@@ -19,7 +19,7 @@ export default function Payment() {
   const elements = useElements();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
+  const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo")) || {};
   const { user } = useSelector((state) => state.authState);
   const { items: cartItems, shippingInfo } = useSelector(
     (state) => state.cartState
@@ -27,7 +27,7 @@ export default function Payment() {
   const { error: orderError } = useSelector((state) => state.orderState);
 
   const paymentData = {
-    amount: Math.round(orderInfo.totalPrice * 100),
+    amount: orderInfo.totalPrice ? Math.round(orderInfo.totalPrice * 100) : 0,
     shipping: {
       name: user.name,
       address: {
@@ -57,10 +57,10 @@ export default function Payment() {
     validateShipping(shippingInfo, navigate);
     if (orderError) {
       toast(orderError, {
-        position: toast.POSITION.TOP_RIGHT,
+        position: toast.POSITION.BOTTOM_CENTER,
         type: "error",
         onOpen: () => {
-          dispatch(dispatch(clearOrderError()));
+          dispatch(clearOrderError());
         },
       });
       return;
@@ -71,9 +71,9 @@ export default function Payment() {
     e.preventDefault();
     document.querySelector("#pay_btn").disabled = true;
     try {
-      const { data } = await axios.post("api/v1/payment/process", paymentData);
+      const { data } = await axios.post("/api/v1/payment/process", paymentData);
       const clientSecret = data.client_secret;
-      const result = stripe.confirmCardPayment(clientSecret, {
+      const result = await stripe.confirmCardPayment(clientSecret, {
         payment_method: {
           card: elements.getElement(CardNumberElement),
           billing_details: {
@@ -83,35 +83,34 @@ export default function Payment() {
         },
       });
 
-      if ((await result).error) {
-        toast((await result).error.message, {
+      if (result.error) {
+        toast(result.error.message, {
           type: "error",
           position: toast.POSITION.BOTTOM_CENTER,
         });
         document.querySelector("#pay_btn").disabled = false;
       } else {
-        if ((await result).paymentIntent.status === "succeeded") {
+        if (result.paymentIntent.status === "succeeded") {
           toast("Payment Success!", {
             type: "success",
             position: toast.POSITION.BOTTOM_CENTER,
           });
           order.paymentInfo = {
-            id: (await result).paymentIntent.id,
-            status: (await result).paymentIntent.status,
+            id: result.paymentIntent.id,
+            status: result.paymentIntent.status,
           };
           dispatch(orderCompleted());
           dispatch(createOrder(order));
+
           navigate("/order/success");
         } else {
-          toast("Please try again", {
+          toast("Please Try again!", {
             type: "warning",
             position: toast.POSITION.BOTTOM_CENTER,
           });
         }
       }
-    } catch (error) {
-      console.log(error.message);
-    }
+    } catch (error) {}
   };
 
   return (
@@ -125,7 +124,6 @@ export default function Payment() {
               type="text"
               id="card_num_field"
               className="form-control"
-              value=""
             />
           </div>
 
@@ -135,7 +133,6 @@ export default function Payment() {
               type="text"
               id="card_exp_field"
               className="form-control"
-              value=""
             />
           </div>
 
@@ -145,12 +142,14 @@ export default function Payment() {
               type="text"
               id="card_cvc_field"
               className="form-control"
-              value=""
             />
           </div>
 
           <button id="pay_btn" type="submit" className="btn btn-block py-3">
-            Pay - {`$${orderInfo && orderInfo.totalPrice}`}
+            Pay -{" "}
+            {orderInfo.totalPrice
+              ? ` ₹${orderInfo.totalPrice}`
+              : "Total Price Unavailable"}
           </button>
         </form>
       </div>

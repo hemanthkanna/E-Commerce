@@ -46,7 +46,7 @@ export default function Shipping() {
 
   return (
     <Fragment>
-      <CheckoutSteps shipping />
+      <CheckoutSteps shipping={true} />
       <div className="row wrapper">
         <div className="col-10 col-lg-5">
           <form onSubmit={submitHandler} className="shadow-lg">

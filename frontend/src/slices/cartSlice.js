@@ -22,6 +22,7 @@ const cartSlice = createSlice({
       const item = action.payload;
 
       const isItemExist = state.items.find((i) => i.product == item.product);
+
       if (isItemExist) {
         state = {
           ...state,
@@ -32,6 +33,7 @@ const cartSlice = createSlice({
           items: [...state.items, item],
           loading: false,
         };
+
         localStorage.setItem("cartItems", JSON.stringify(state.items));
       }
       return state;
@@ -72,13 +74,13 @@ const cartSlice = createSlice({
       };
     },
     orderCompleted(state, action) {
-      localStorage.removeItem('shippingInfo');
-      localStorage.removeItem('cartItems');
-      sessionStorage.removeItem('orderInfo');
+      localStorage.removeItem("shippingInfo");
+      localStorage.removeItem("cartItems");
+      sessionStorage.removeItem("orderInfo");
       return {
         items: [],
         loading: false,
-        shippingInfo: {}
+        shippingInfo: {},
       };
     },
   },
@@ -87,12 +89,13 @@ const cartSlice = createSlice({
 const { actions, reducer } = cartSlice;
 
 export const {
-  addCartItemSuccess,
   addCartItemRequest,
-  increaseCartItemQty,
+  addCartItemSuccess,
   decreaseCartItemQty,
+  increaseCartItemQty,
   removeItemFromCart,
   saveShippingInfo,
   orderCompleted,
 } = actions;
+
 export default reducer;

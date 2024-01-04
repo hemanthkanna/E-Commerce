@@ -42,7 +42,7 @@ exports.getSingleOrder = catchAsyncError(async (req, res, next) => {
 
   if (!order) {
     return next(
-      new ErrorHandler(`Order not found with this id : ${req.params.id}`, 404)
+      new ErrorHandler(`Order not found with this id: ${req.params.id}`, 404)
     );
   }
 
@@ -52,7 +52,7 @@ exports.getSingleOrder = catchAsyncError(async (req, res, next) => {
   });
 });
 
-//Get LoggedIn User Orders - api/v1/myorders
+//Get Loggedin User Orders - /api/v1/myorders
 exports.myOrders = catchAsyncError(async (req, res, next) => {
   const orders = await Order.find({ user: req.user.id });
 

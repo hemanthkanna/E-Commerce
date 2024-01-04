@@ -57,7 +57,7 @@ export default function Cart() {
                       </div>
 
                       <div className="col-4 col-lg-2 mt-4 mt-lg-0">
-                        <p id="card_item_price">${item.price}</p>
+                        <p id="card_item_price">₹{item.price}</p>
                       </div>
 
                       <div className="col-4 col-lg-3 mt-4 mt-lg-0">
@@ -105,16 +105,16 @@ export default function Cart() {
                 <h4>Order Summary</h4>
                 <hr />
                 <p>
-                  Subtotal:{" "}
+                  Subtotal:
                   <span className="order-summary-values">
-                    {items.reduce((acc, item) => acc + item.quantity, 0)}{" "}
+                    {items.reduce((acc, item) => acc + item.quantity, 0)}
                     (Units)
                   </span>
                 </p>
                 <p>
-                  Est. total:{" "}
+                  Est. total:
                   <span className="order-summary-values">
-                    $
+                    ₹
                     {items.reduce(
                       (acc, item) => acc + item.quantity * item.price,
                       0

@@ -29,16 +29,16 @@ export default function ConfirmOrder() {
       totalPrice,
     };
     sessionStorage.setItem("orderInfo", JSON.stringify(data));
-    navigate('/payment');
+    navigate("/payment");
   };
 
   useEffect(() => {
     validateShipping(shippingInfo, navigate);
-  }, [shippingInfo, navigate]);
+  }, []);
 
   return (
     <Fragment>
-      <MetaData title={"confirm order"} />
+      <MetaData title={"Confirm Order"} />
       <CheckoutSteps shipping={true} confirmOrder={true} />
       <div className="row d-flex justify-content-between">
         <div className="col-12 col-lg-8 mt-5 order-confirm">
@@ -50,8 +50,8 @@ export default function ConfirmOrder() {
             <b>Phone:</b> {shippingInfo.phoneNo}
           </p>
           <p className="mb-4">
-            <b>Address:</b> {shippingInfo.address}, {shippingInfo.city},{" "}
-            {shippingInfo.postalCode}, {shippingInfo.state},{" "}
+            <b>Address:</b> {shippingInfo.address}, {shippingInfo.city},
+            {shippingInfo.postalCode}, {shippingInfo.state},
             {shippingInfo.country}
           </p>
 
@@ -60,7 +60,7 @@ export default function ConfirmOrder() {
 
           {cartItems.map((item) => (
             <Fragment>
-              <div className="cart-item my-1">
+              <div key={item} className="cart-item my-1">
                 <div className="row">
                   <div className="col-4 col-lg-2">
                     <img
@@ -77,8 +77,8 @@ export default function ConfirmOrder() {
 
                   <div className="col-4 col-lg-4 mt-4 mt-lg-0">
                     <p>
-                      {item.quantity} x {item.price} ={" "}
-                      <b>${item.quantity * item.price}</b>
+                      {item.quantity} x ₹{item.price} =
+                      <b>₹{item.quantity * item.price}</b>
                     </p>
                   </div>
                 </div>
@@ -93,11 +93,11 @@ export default function ConfirmOrder() {
             <h4>Order Summary</h4>
             <hr />
             <p>
-              Subtotal:{" "}
+              Subtotal:
               <span className="order-summary-values">${itemsPrice}</span>
             </p>
             <p>
-              Shipping:{" "}
+              Shipping:
               <span className="order-summary-values">${shippingPrice}</span>
             </p>
             <p>
