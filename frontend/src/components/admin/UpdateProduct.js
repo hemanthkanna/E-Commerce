@@ -26,18 +26,7 @@ export default function UpdateProduct() {
     "Honey Delicacies",
     "Skin care",
     "Honey medicines",
-    "Electronics",
-    "Mobile Phones",
-    "Laptops",
-    "Accessories",
-    "Headphones",
-    "Food",
-    "Books",
-    "Clothes/Shoes",
-    "Beauty/Health",
-    "Sports",
-    "Outdoor",
-    "Home",
+    "Electronics"
   ];
 
   const navigate = useNavigate();

@@ -1,8 +1,8 @@
 import { Fragment, useEffect, useState } from "react";
-import MetaData from "./layouts/MetaData";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../actions/productActions";
 import Loader from "./layouts/Loader";
+import MetaData from "./layouts/MetaData";
 import Product from "./product/Product";
 import { toast } from "react-toastify";
 import Pagination from "react-js-pagination";
@@ -12,7 +12,6 @@ export default function Home() {
   const { products, loading, error, productsCount, resPerPage } = useSelector(
     (state) => state.productsState
   );
-
   const [currentPage, setCurrentPage] = useState(1);
 
   const setCurrentPageNo = (pageNo) => {
@@ -34,10 +33,8 @@ export default function Home() {
         <Loader />
       ) : (
         <Fragment>
-          <MetaData title={"Buy Best Prdoucts"} />
-
+          <MetaData title={"Buy Best Products"} />
           <h1 id="products_heading">Latest Products</h1>
-
           <section id="products" className="container mt-5">
             <div className="row">
               {products &&
@@ -46,7 +43,6 @@ export default function Home() {
                 ))}
             </div>
           </section>
-
           {productsCount > 0 && productsCount > resPerPage ? (
             <div className="d-flex justify-content-center mt-5">
               <Pagination

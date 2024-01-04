@@ -62,14 +62,14 @@ export default function ProductDetail() {
       handleClose();
       toast("Review Submitted successfully", {
         type: "success",
-        position: toast.POSITION.BOTTOM_CENTER,
+        position: toast.POSITION.TOP_RIGHT,
         onOpen: () => dispatch(clearReviewSubmitted()),
       });
     }
 
     if (error) {
       toast(error, {
-        position: toast.POSITION.BOTTOM_CENTER,
+        position: toast.POSITION.TOP_RIGHT,
         type: "error",
         onOpen: () => {
           dispatch(clearError());
@@ -130,7 +130,7 @@ export default function ProductDetail() {
 
               <hr />
 
-              <p id="product_price">${product.price}</p>
+              <p id="product_price">₹{product.price}</p>
               <div className="stockCounter d-inline">
                 <span className="btn btn-danger minus" onClick={decreaseQty}>
                   -
@@ -166,7 +166,7 @@ export default function ProductDetail() {
               <hr />
 
               <p>
-                Status:{" "}
+                Status:
                 <span
                   className={product.stock > 0 ? "greenColor" : "redColor"}
                   id="stock_status"

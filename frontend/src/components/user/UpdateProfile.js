@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateProfile, clearAuthError } from "../../actions/userActions";
 import { toast } from "react-toastify";
+import { updateProfile, clearAuthError } from "../../actions/userActions";
 import { clearUpdateProfile } from "../../slices/authSlice";
 
 export default function UpdateProfile() {
@@ -9,33 +9,73 @@ export default function UpdateProfile() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [avatar, setAvatar] = useState("");
-  const [avatarPreview, setAvatarPreview] = useState({path : './images/default_image.png'});
+  const [avatarPreview, setAvatarPreview] = useState(
+    "/images/default_avatar.png"
+  );
   const dispatch = useDispatch();
+
+  // const onChangeAvatar = (e) => {
+  //   const reader = new FileReader();
+  //   reader.onload = () => {
+  //     if (reader.readyState === 2) {
+  //       setAvatarPreview(reader.result);
+  //       setAvatar(e.target.files[0]);
+  //     }
+  //   };
+
+  //   reader.readAsDataURL(e.target.files[0]);
+  // };
 
   const onChangeAvatar = (e) => {
     const reader = new FileReader();
+  
     reader.onload = () => {
       if (reader.readyState === 2) {
         setAvatarPreview(reader.result);
-        setAvatar(e.target.files[0]);
       }
     };
-
-    reader.readAsDataURL(e.target.files[0]);
+  
+    const selectedFile = e.target.files[0];
+  
+    if (selectedFile) {
+      reader.readAsDataURL(selectedFile);
+      setAvatar(selectedFile);
+    } else {
+      // Handle the case where no file is selected, e.g., setAvatar(null);
+      setAvatar(user.avatar);
+      console.log(user.avatar);
+    }
+  
+    console.log("target", e.target.value);
+    console.log("file", selectedFile);
   };
+  
+
+  // const submitHandler = (e) => {
+  //   e.preventDefault();
+  //   const formData = new FormData();
+  //   formData.append("name", name);
+  //   formData.append("email", email);
+  //   formData.append("avatar", avatar);
+  //   dispatch(updateProfile(formData));
+  //   console.log("form avatar",avatar);
+  // };
 
   const submitHandler = (e) => {
-    try {
-      e.preventDefault();
-      const formData = new FormData();
-      formData.append("name", name);
-      formData.append("email", email); 
+    e.preventDefault();
+  
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("email", email);
+  
+    if (avatar !== "") {
       formData.append("avatar", avatar);
-      dispatch(updateProfile(formData));
-    } catch (error) {
-     console.log(error); 
     }
+  
+    dispatch(updateProfile(formData));
+    console.log("form avatar", avatar);
   };
+  
 
   useEffect(() => {
     if (user) {

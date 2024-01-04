@@ -133,8 +133,6 @@ exports.resetPassword = catchAsyncError(async (req, res, next) => {
 // Get User Profile - /api/v1/myprofile
 exports.getUserProfile = catchAsyncError(async (req, res, next) => {
   const user = await User.findById(req.user.id);
-  console.log(req.user.id);
-  console.log(user);
   res.status(200).json({
     success: true,
     user,
@@ -168,12 +166,8 @@ exports.updateProfile = catchAsyncError(async (req, res, next) => {
 
   let avatar;
   if (req.file) {
-    try {
       avatar = `${process.env.BACKEND_URL}/uploads/user/${req.file.originalname}`;
       newUserData = {...newUserData, avatar}
-    } catch (error) {
-      console.log(error);
-    }
   }
 
 

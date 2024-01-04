@@ -29,19 +29,7 @@ export default function ProductSearch() {
     "Honey varieties",
     "Honey Delicacies",
     "Skin care",
-    "Honey medicines",
-    "Electronics",
-    "Mobile Phones",
-    "Laptops",
-    "Accessories",
-    "Headphones",
-    "Food",
-    "Books",
-    "Clothes/Shoes",
-    "Beauty/Health",
-    "Sports",
-    "Outdoor",
-    "Home",
+    "Honey medicines"
   ];
 
   const setCurrentPageNo = (pageNo) => {
@@ -51,7 +39,7 @@ export default function ProductSearch() {
   useEffect(() => {
     if (error) {
       return toast.error(error, {
-        position: toast.POSITION.BOTTOM_CENTER,
+        position: toast.POSITION.TOP_RIGHT,
       });
     }
     dispatch(getProducts(keyword, priceChanged, category, rating, currentPage));
@@ -75,8 +63,8 @@ export default function ProductSearch() {
                   <Slider
                     range={true}
                     marks={{
-                      1: "$1",
-                      1000: "$1000",
+                      1: "₹1",
+                      1000: "₹1000",
                     }}
                     min={1}
                     max={1000}
@@ -87,7 +75,7 @@ export default function ProductSearch() {
                     handleRender={(renderProps) => {
                       return (
                         <Tooltip
-                          overlay={`$${renderProps.props["aria-valuenow"]}`}
+                          overlay={`${renderProps.props["aria-valuenow"]}`}
                         >
                           <div {...renderProps.props}> </div>
                         </Tooltip>
@@ -111,7 +99,6 @@ export default function ProductSearch() {
                           setCategory(category);
                         }}
                       >
-                        {" "}
                         {category}
                       </li>
                     ))}
