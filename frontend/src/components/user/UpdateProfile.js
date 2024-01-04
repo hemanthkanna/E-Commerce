@@ -67,11 +67,7 @@ export default function UpdateProfile() {
     const formData = new FormData();
     formData.append("name", name);
     formData.append("email", email);
-  
-    if (avatar !== "") {
-      formData.append("avatar", avatar);
-    }
-  
+    formData.append("avatar", avatar);
     dispatch(updateProfile(formData));
     console.log("form avatar", avatar);
   };
